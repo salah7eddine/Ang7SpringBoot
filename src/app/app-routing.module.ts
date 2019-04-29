@@ -1,7 +1,22 @@
+import { RouteGuardService } from './services/route-guard.service';
+import { LogoutComponent } from './logout/logout.component';
+import { ErrorComponent } from './error/error.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-const routes: Routes = [];
+import { LoginComponent } from './login/login.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ListTodosComponent } from './list-todos/list-todos.component';
+import { TodoComponent } from './todo/todo.component';
+// welcome
+const routes: Routes = [
+  { path: '', component: LoginComponent }, // canActivate, RouteGuardService
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: 'welcome/:name', component: WelcomeComponent, canActivate: [RouteGuardService] },
+  { path: 'todos', component: ListTodosComponent, canActivate: [RouteGuardService] },
+  { path: 'todos/:id', component: TodoComponent, canActivate: [RouteGuardService] },
+  { path: '**', component: ErrorComponent, canActivate: [RouteGuardService] }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
